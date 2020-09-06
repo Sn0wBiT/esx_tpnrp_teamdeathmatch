@@ -1,0 +1,347 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="./index_files/script.js"></script>
+  <link rel="stylesheet" href="./index_files/style.css">
+</head>
+
+<body>
+  <audio id="speak_ai" src=""></audio>
+  <audio id="anount_ai" src=""></audio>
+  <section id="game_ui">
+    <div id="header" style="display:none;">
+      <div id="match_teams">
+        <div id="round_info" style="height: 100%;">
+          
+          <div class="team_info" id="team_1" style="height: 100%;">
+            <div class="red_score" id="team_score">0</div>
+            <div id="team_logo">
+              <div id="team_flag"></div><img id="team_1_logo">
+            </div>
+            <div id="team_name" class="red">Đội Đỏ</div>
+          </div>
+          <div class="team_info" id="team_2" style="height: 100%;">
+            <div class="blue_score" id="team_score">0</div>
+            <div id="team_logo">
+              <div id="team_flag"></div><img id="team_2_logo">
+            </div>
+            <div id="team_name" class="blue">Đội Xanh</div>
+          </div>
+          <div class="bg-info">
+            <div id="time_counter">1:55</div>
+            <div id="round_counter">Bo3</div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div id="who_won">
+      <div id="winning_team"></div>
+      <div>đã chiến thắng!</div>
+      <div class="div_info">Ván đấu mới sẽ bắt đầu trong <span class="red" id="remain_time">15</span> giây nữa!</div>
+    </div>
+    <div id="game_scoreboard" style="display:none;">
+      <div class="team" id="left">
+        <div class="money"><img class="invert" src="./index_files/team.png"
+            style="max-height: 70%; margin-top:10px; margin-left:10px; float:left;">
+          <div style="width:25%; float:left; color: #00b400;  text-shadow: 0 0 8px black;">
+            <div class="first_title_tm">Team money:</div>
+            <div class="first_tm" id="team_money_1" style="font-weight:600">$0</div>
+          </div><img class="invert" src="./index_files/eq.png" style="max-height: 70%; margin-top:10px; float:left;">
+          <div style="width:40%; float:left; color: #f7bf16; text-shadow: 0 0 8px black;">
+            <div class="first_title_tm">Equipment value:</div>
+            <div class="first_tm" id="eq_money_1" style="font-weight:600">$0</div>
+          </div>
+        </div>
+        <div class="player red-team" data-player-id="1" id="player1" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys ct">0$</div>
+              <div class="bomb_defuse ct"><img class="invert_brightness" src="./index_files/defuse.png"></div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player red-team" data-player-id="2" id="player2" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys ct">0$</div>
+              <div class="bomb_defuse ct"><img class="invert_brightness" src="./index_files/defuse.png"></div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player red-team" data-player-id="3" id="player3" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys ct">0$</div>
+              <div class="bomb_defuse ct"><img class="invert_brightness" src="./index_files/defuse.png"></div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player red-team" data-player-id="4" id="player4" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys ct">0$</div>
+              <div class="bomb_defuse ct"><img class="invert_brightness" src="./index_files/defuse.png"></div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player red-team" data-player-id="5" id="player5" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys ct">0$</div>
+              <div class="bomb_defuse ct"><img class="invert_brightness" src="./index_files/defuse.png"></div>
+              <div class="bar_weapon ct" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="team" id="right">
+        <div class="money"><img class="invert" src="./index_files/team.png"
+            style="max-height: 70%; margin-top:10px; margin-right:10px; float:right; ">
+          <div style="width:25%; float:right; color: #00b400;  text-shadow: 0 0 8px black; text-align:right;">
+            <div class="first_title_tm" style="width: 300px;">Team money:</div>
+            <div class="first_tm" id="team_money_2" style="font-weight:600">$0</div>
+          </div><img class="invert" src="./index_files/eq.png"
+            style="max-height: 70%; margin-top:10px; margin-right:10px; float:right;">
+          <div style="width:40%; float:right; color: #f7bf16; text-shadow: 0 0 8px black; text-align:right">
+            <div class="first_title_tm" style="width: 300px;">Equipment value:</div>
+            <div class="first_tm" id="eq_money_2" style="font-weight:600">$0</div>
+          </div>
+        </div>
+        <div class="player blue-team" data-player-id="1" id="player1" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys t">0$</div>
+              <div class="bomb_defuse t"><img class="invert_brightness" src="./index_files/bomb.png"></div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player blue-team" data-player-id="2" id="player2" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys t">0$</div>
+              <div class="bomb_defuse t"><img class="invert_brightness" src="./index_files/bomb.png"></div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player blue-team" data-player-id="3" id="player3" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys t">0$</div>
+              <div class="bomb_defuse t"><img class="invert_brightness" src="./index_files/bomb.png"></div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player blue-team" data-player-id="4" id="player4" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys t">0$</div>
+              <div class="bomb_defuse t"><img class="invert_brightness" src="./index_files/bomb.png"></div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="player blue-team" data-player-id="5" id="player5" style="display:none;">
+          <div class="bar1">
+            <div class="hp_bar">
+              <div class="hp_el" id="hp_p">100</div>
+              <div class="bar_username" id="bar_username">undefined</div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">K</div>
+              <div class="assists">A</div>
+              <div class="deaths">D</div>
+            </div>
+          </div>
+          <div class="bottom_bar">
+            <div class="equip_bar">
+              <div class="hp_el"></div>
+              <div class="moneys t">0$</div>
+              <div class="bomb_defuse t"><img class="invert_brightness" src="./index_files/bomb.png"></div>
+              <div class="bar_weapon t" id="weapon_icon"></div>
+            </div>
+            <div class="stat_t">
+              <div class="kills">0</div>
+              <div class="assists">0</div>
+              <div class="deaths">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
