@@ -17,7 +17,7 @@ matchWin = 3 -- 2 (bo3), 3 (bo5), 16 (bo30)
 
 TriggerEvent('tpnxse:getSharedObject', function(obj) ESX = obj end)
 
-ESX.RegisterServerCallback('tpnxse_tpnrp_teamdeathmatch:getStatus', function(source, cb)
+ESX.RegisterServerCallback('esx_tpnrp_teamdeathmatch:getStatus', function(source, cb)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
     if xPlayer ~= nil then
@@ -25,18 +25,18 @@ ESX.RegisterServerCallback('tpnxse_tpnrp_teamdeathmatch:getStatus', function(sou
     end
 end)
 
-RegisterServerEvent('tpnxse_tpnrp_teamdeathmatch:toggleTeamdeathmatch')
-AddEventHandler('tpnxse_tpnrp_teamdeathmatch:toggleTeamdeathmatch', function() 
+RegisterServerEvent('esx_tpnrp_teamdeathmatch:toggleTeamdeathmatch')
+AddEventHandler('esx_tpnrp_teamdeathmatch:toggleTeamdeathmatch', function() 
     if isEnableMatch then
         isEnableMatch = false
     else
         isEnableMatch = true
     end
-    TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:toggleTeamdeathmatch', -1, isEnableMatch)
+    TriggerClientEvent('esx_tpnrp_teamdeathmatch:toggleTeamdeathmatch', -1, isEnableMatch)
 end)
 
-RegisterServerEvent('tpnxse_tpnrp_teamdeathmatch:joinTeam')
-AddEventHandler('tpnxse_tpnrp_teamdeathmatch:joinTeam', function(team_name)
+RegisterServerEvent('esx_tpnrp_teamdeathmatch:joinTeam')
+AddEventHandler('esx_tpnrp_teamdeathmatch:joinTeam', function(team_name)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(source)
     if xPlayer ~= nil then
@@ -51,7 +51,7 @@ AddEventHandler('tpnxse_tpnrp_teamdeathmatch:joinTeam', function(team_name)
                     ckill = 0,
                     death = 0
                 }
-                TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:joinedMatch', _source, team_name, Deathmatch)
+                TriggerClientEvent('esx_tpnrp_teamdeathmatch:joinedMatch', _source, team_name, Deathmatch)
                 updateUI()
             end
         else
@@ -60,8 +60,8 @@ AddEventHandler('tpnxse_tpnrp_teamdeathmatch:joinTeam', function(team_name)
     end
 end)
 
-RegisterServerEvent('tpnxse_tpnrp_teamdeathmatch:iamDead')
-AddEventHandler('tpnxse_tpnrp_teamdeathmatch:iamDead', function(team_name) 
+RegisterServerEvent('esx_tpnrp_teamdeathmatch:iamDead')
+AddEventHandler('esx_tpnrp_teamdeathmatch:iamDead', function(team_name) 
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(source)
     if xPlayer ~= nil then
@@ -72,8 +72,8 @@ AddEventHandler('tpnxse_tpnrp_teamdeathmatch:iamDead', function(team_name)
     end
 end)
 
-RegisterServerEvent('tpnxse_tpnrp_teamdeathmatch:iKilled')
-AddEventHandler('tpnxse_tpnrp_teamdeathmatch:iKilled', function(team_name) 
+RegisterServerEvent('esx_tpnrp_teamdeathmatch:iKilled')
+AddEventHandler('esx_tpnrp_teamdeathmatch:iKilled', function(team_name) 
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(source)
     if xPlayer ~= nil then
@@ -86,8 +86,8 @@ AddEventHandler('tpnxse_tpnrp_teamdeathmatch:iKilled', function(team_name)
     end
 end)
 
-RegisterServerEvent('tpnxse_tpnrp_teamdeathmatch:playerReady')
-AddEventHandler('tpnxse_tpnrp_teamdeathmatch:playerReady', function(team_name)
+RegisterServerEvent('esx_tpnrp_teamdeathmatch:playerReady')
+AddEventHandler('esx_tpnrp_teamdeathmatch:playerReady', function(team_name)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(source)
     if xPlayer ~= nil then
@@ -96,8 +96,8 @@ AddEventHandler('tpnxse_tpnrp_teamdeathmatch:playerReady', function(team_name)
     end
 end)
 
-RegisterServerEvent('tpnxse_tpnrp_teamdeathmatch:quit')
-AddEventHandler('tpnxse_tpnrp_teamdeathmatch:quit', function(team_name) 
+RegisterServerEvent('esx_tpnrp_teamdeathmatch:quit')
+AddEventHandler('esx_tpnrp_teamdeathmatch:quit', function(team_name) 
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(source)
     if xPlayer ~= nil then
@@ -154,11 +154,11 @@ end
 function startMatch()
     -- Call update Game UI to all players Blue
     for k,v in pairs(Deathmatch["BlueTeam"].player_list) do
-        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:startMatch', k)
+        TriggerClientEvent('esx_tpnrp_teamdeathmatch:startMatch', k)
     end
     -- Red
     for k,v in pairs(Deathmatch["RedTeam"].player_list) do
-        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:startMatch', k)
+        TriggerClientEvent('esx_tpnrp_teamdeathmatch:startMatch', k)
     end
     TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1Trận đấu đã bắt đầu!')
 end
@@ -166,11 +166,11 @@ end
 function updateUI()
     -- Call update Game UI to all players Blue
     for k,v in pairs(Deathmatch["BlueTeam"].player_list) do
-        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:updateGameUI', k, Deathmatch)
+        TriggerClientEvent('esx_tpnrp_teamdeathmatch:updateGameUI', k, Deathmatch)
     end
     -- Red
     for k,v in pairs(Deathmatch["RedTeam"].player_list) do
-        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:updateGameUI', k, Deathmatch)
+        TriggerClientEvent('esx_tpnrp_teamdeathmatch:updateGameUI', k, Deathmatch)
     end
 end
 
@@ -199,11 +199,11 @@ function checkMatch(team_name)
         if Deathmatch[winTeam].score == matchWin then
             -- Send Win message
             for k,v in pairs(Deathmatch[winTeam].player_list) do
-                TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:matchFinished', k, Deathmatch, winTeam)
+                TriggerClientEvent('esx_tpnrp_teamdeathmatch:matchFinished', k, Deathmatch, winTeam)
             end
             -- Send Lose message
             for k,v in pairs(Deathmatch[team_name].player_list) do
-                TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:matchFinished', k, Deathmatch, winTeam)
+                TriggerClientEvent('esx_tpnrp_teamdeathmatch:matchFinished', k, Deathmatch, winTeam)
             end
             TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1'.. Deathmatch[winTeam].name .. " đã dành chiến thắng chung cuộc!")
             SetTimeout(15000, function()
@@ -220,7 +220,7 @@ function checkMatch(team_name)
                             -- print("removed gun from " .. v.name)
                             _player.removeWeapon(_player.loadout[i].name)
                         end
-                        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:endMatch', k, winTeam, winTeam)
+                        TriggerClientEvent('esx_tpnrp_teamdeathmatch:endMatch', k, winTeam, winTeam)
                     end)
                 end
                 -- New round
@@ -235,7 +235,7 @@ function checkMatch(team_name)
                             -- print("removed gun from " .. v.name)
                             _player.removeWeapon(_player.loadout[i].name)
                         end
-                        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:endMatch', k, team_name, winTeam)
+                        TriggerClientEvent('esx_tpnrp_teamdeathmatch:endMatch', k, team_name, winTeam)
                     end)
                 end
                 -- reset save match data
@@ -244,11 +244,11 @@ function checkMatch(team_name)
         else
             -- Send Win message
             for k,v in pairs(Deathmatch[winTeam].player_list) do
-                TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:youWon', k, Deathmatch, winTeam)
+                TriggerClientEvent('esx_tpnrp_teamdeathmatch:youWon', k, Deathmatch, winTeam)
             end
             -- Send Lose message
             for k,v in pairs(Deathmatch[team_name].player_list) do
-                TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:youLose', k, Deathmatch, winTeam)
+                TriggerClientEvent('esx_tpnrp_teamdeathmatch:youLose', k, Deathmatch, winTeam)
             end
             TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1'.. Deathmatch[winTeam].name .. " đã dành chiến thắng! Tỉ số hiện tại " .. Deathmatch[winTeam].score .. " - " .. Deathmatch[team_name].score .. " nghiêng về " .. Deathmatch[winTeam].name)
             SetTimeout(15000, function()
@@ -263,7 +263,7 @@ function checkMatch(team_name)
                     Deathmatch[winTeam].player_list[k].ckill = 0
                     SetTimeout(1000, function() 
                         -- print("Tele " .. k .. " Team: " .. winTeam)
-                        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:newRound', k, winTeam)
+                        TriggerClientEvent('esx_tpnrp_teamdeathmatch:newRound', k, winTeam)
                     end)
                 end
                 -- New round
@@ -275,7 +275,7 @@ function checkMatch(team_name)
                     Deathmatch[team_name].player_list[k].ckill = 0
                     SetTimeout(1000, function() 
                         -- print("Tele " .. k .. " Team: " .. team_name)
-                        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:newRound', k, team_name)
+                        TriggerClientEvent('esx_tpnrp_teamdeathmatch:newRound', k, team_name)
                     end)
                 end
             end)
@@ -367,10 +367,10 @@ function AnountKill(_source, team_name)
         _kill = "penta"
     end
     for k,v in pairs(Deathmatch[team_name].player_list) do
-        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:anountVoice', k, "allied", _kill)
+        TriggerClientEvent('esx_tpnrp_teamdeathmatch:anountVoice', k, "allied", _kill)
     end
     for k,v in pairs(Deathmatch[_other_team_name].player_list) do
-        TriggerClientEvent('tpnxse_tpnrp_teamdeathmatch:anountVoice', k, "enemy", _kill)
+        TriggerClientEvent('esx_tpnrp_teamdeathmatch:anountVoice', k, "enemy", _kill)
     end
 end
 
