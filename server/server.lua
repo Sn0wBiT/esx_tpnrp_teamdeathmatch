@@ -15,7 +15,7 @@ Deathmatch = {
 }
 matchWin = 3 -- 2 (bo3), 3 (bo5), 16 (bo30)
 
-TriggerEvent('tpnxse:getSharedObject', function(obj) ESX = obj end)
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 ESX.RegisterServerCallback('esx_tpnrp_teamdeathmatch:getStatus', function(source, cb)
     local _source = source
@@ -55,7 +55,7 @@ AddEventHandler('esx_tpnrp_teamdeathmatch:joinTeam', function(team_name)
                 updateUI()
             end
         else
-            TriggerClientEvent('tpnxse:showNotification', _source, "Trận đấu đang diễn ra. Bạn không thể tham gia!")
+            TriggerClientEvent('esx:showNotification', _source, "Trận đấu đang diễn ra. Bạn không thể tham gia!")
         end
     end
 end)
@@ -212,7 +212,7 @@ function checkMatch(team_name)
                 for k,v in pairs(Deathmatch[winTeam].player_list) do
                     if v.isDead then
                         Deathmatch[winTeam].player_list[k].isDead = false
-                        TriggerClientEvent('tpnxse_ambulancejob:revive', k)
+                        TriggerClientEvent('esx_ambulancejob:revive', k)
                     end
                     SetTimeout(1500, function() 
                         local _player = ESX.GetPlayerFromId(k)
@@ -227,7 +227,7 @@ function checkMatch(team_name)
                 for k,v in pairs(Deathmatch[team_name].player_list) do
                     if v.isDead then
                         Deathmatch[team_name].player_list[k].isDead = false
-                        TriggerClientEvent('tpnxse_ambulancejob:revive', k)
+                        TriggerClientEvent('esx_ambulancejob:revive', k)
                     end
                     SetTimeout(1500, function() 
                         local _player = ESX.GetPlayerFromId(k)
@@ -258,7 +258,7 @@ function checkMatch(team_name)
                 for k,v in pairs(Deathmatch[winTeam].player_list) do
                     if v.isDead then
                         Deathmatch[winTeam].player_list[k].isDead = false
-                        TriggerClientEvent('tpnxse_ambulancejob:revive', k)
+                        TriggerClientEvent('esx_ambulancejob:revive', k)
                     end
                     Deathmatch[winTeam].player_list[k].ckill = 0
                     SetTimeout(1000, function() 
@@ -270,7 +270,7 @@ function checkMatch(team_name)
                 for k,v in pairs(Deathmatch[team_name].player_list) do
                     if v.isDead then
                         Deathmatch[team_name].player_list[k].isDead = false
-                        TriggerClientEvent('tpnxse_ambulancejob:revive', k)
+                        TriggerClientEvent('esx_ambulancejob:revive', k)
                     end
                     Deathmatch[team_name].player_list[k].ckill = 0
                     SetTimeout(1000, function() 
