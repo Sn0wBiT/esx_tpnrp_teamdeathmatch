@@ -7,7 +7,7 @@ CurrentActionData = nil
 isInMatch = false
 isReady = false
 currentTeam = ""
-isEnableTeamDeathmatch = false
+isEnableTeamDeathmatch = true
 
 local Keys = {
 	["ESC"] = 322, ["BACKSPACE"] = 177, ["E"] = 38, ["ENTER"] = 18,	["LEFT"] = 174, ["RIGHT"] = 175, ["TOP"] = 27, ["DOWN"] = 173
@@ -33,8 +33,6 @@ Citizen.CreateThread(function()
 		SetBlipColour(blip, 49)
 		SetBlipAsShortRange(blip, true)
 		BeginTextCommandSetBlipName("STRING")
-		-- AddTextComponentString("May Xeng")
-		AddTextComponentString("<font face=\"Helvetica Neue\">Đấu trường</font>")
 		EndTextCommandSetBlipName(blip)	
 		-- END draw blip
 		ESX.TriggerServerCallback("esx_tpnrp_teamdeathmatch:getStatus", function(result) 
@@ -89,7 +87,7 @@ Citizen.CreateThread(function()
 				if isInMatch then
 					if(GetDistanceBetweenCoords(coords, v.game_start_pos.x, v.game_start_pos.y, v.game_start_pos.z, true) < Config.DrawDistance) then
 						DrawMarker(1, v.game_start_pos.x, v.game_start_pos.y, v.game_start_pos.z - 1.2, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 4.5, 4.5, 1.5, v.color.r, v.color.g, v.color.b, 100, false, true, 2, false, false, false, false)
-						ESX.Game.Utils.DrawText3D(vector3(v.game_start_pos.x, v.game_start_pos.y, v.game_start_pos.z + 1.7), "Mua đồ " .. v.name, 1)
+						ESX.Game.Utils.DrawText3D(vector3(v.game_start_pos.x, v.game_start_pos.y, v.game_start_pos.z + 1.7), "Zone " .. v.name, 1)
 					end
 				end
 			end
@@ -121,7 +119,7 @@ Citizen.CreateThread(function()
 				if isInMatch then
 					if(GetDistanceBetweenCoords(coords, v.game_start_pos.x, v.game_start_pos.y, v.game_start_pos.z, true) < Config.Size.x) then
 						isInMarker  = true
-						ESX.ShowHelpNotification("Bấm E để mua đồ ở " ..  v.name)
+						ESX.ShowHelpNotification("Press E to join " ..  v.name)
 						if IsControlJustReleased(0, Keys['E']) then
 							ShowBuyMenu()
 						end
@@ -136,8 +134,8 @@ Citizen.CreateThread(function()
 						SendNUIMessage({
 							type = "endgame"
 						})
-						TriggerEvent("njessieNotify:SendNotification", {
-							message = "Bạn đã ra khỏi khu vực đấu trường! Bắt buộc tịch thu vũ khí!"
+						TriggerEvent("pNotify:SendNotification", {
+							message = "Make a full spread over the area! Chat with other questions!"
 						})
 						ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 							TriggerEvent('skinchanger:loadSkin', skin)
@@ -163,7 +161,7 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 		if isEnableTeamDeathmatch then
 			if HasAlreadyEnteredMarker and not isInMatch then
-				ESX.ShowHelpNotification("Bấm E để vào " ..  Config.Deathmatch[CurrentActionData.zone].name)
+				ESX.ShowHelpNotification("Press ~g~E ~w~to join " ..  Config.Deathmatch[CurrentActionData.zone].name)
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and HasAlreadyEnteredMarker and not isInMatch then
@@ -185,16 +183,16 @@ function JoinTeam(name)
 	local elements = {}
 
     table.insert(elements, {
-		label = "Có",
+		label = "Yes",
 		value   = "yes"
 	})
 	table.insert(elements, {
-		label = "không",
+		label = "No",
 		value   = "no"
 	})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'tpnrp_deathmatch_ask1', {
-        title    = "Bạn có muốn tham gia vào " .. Config.Deathmatch[name].name .. "?<br/>Lưu ý: Không mang theo bất cứ vật phẩm gì theo!",
+        title    = "do you  want join " .. Config.Deathmatch[name].name .. "?<br/>Reason: Do not bring along!",
         align    = 'top-left',
         elements = elements
     }, function(data, menu)
@@ -228,8 +226,8 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:joinedMatch", function(name, game_data
 				TriggerEvent('skinchanger:loadClothes', skin, Config.Deathmatch[name].skin.female)
 			end
 		end)
-		TriggerEvent("njessieNotify:SendNotification", {
-			message = "Bạn đã tham gia vào " .. Config.Deathmatch[name].name .. " !"
+		TriggerEvent("pNotify:SendNotification", {
+			message = "You have participated " .. Config.Deathmatch[name].name .. " !"
 		})
 		currentTeam = name
 		SendNUIMessage({
@@ -240,8 +238,8 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:joinedMatch", function(name, game_data
 			game_ui = reMapData(game_data)
 		})
 		-- FreezeEntityPosition(_playerPed, true)
-		TriggerEvent("njessieNotify:SendNotification", {
-			message = "Bạn cần sẵn sàng để bắt đầu trận đấu !"
+		TriggerEvent("pNotify:SendNotification", {
+			message = "You need to get ready to start the game!"
 		})
 	end)
 end)
@@ -288,8 +286,8 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:newRound", function(team_name)
 	})
 	-- Tele player back to spawn point
 	ESX.Game.Teleport(_playerPed, vector3(Config.Deathmatch[team_name].game_start_pos.x,Config.Deathmatch[team_name].game_start_pos.y, Config.Deathmatch[team_name].game_start_pos.z),function() 
-		TriggerEvent("njessieNotify:SendNotification", {
-			message = "Đã bắt đầu ván mới!"
+		TriggerEvent("pNotify:SendNotification", {
+			message = "New game has started!"
 		})
 	end)
 end)
@@ -301,8 +299,8 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:endMatch", function(team_name, win_tea
 		ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 			TriggerEvent('skinchanger:loadSkin', skin)
 		end)
-		TriggerEvent("njessieNotify:SendNotification", {
-			message = "" .. Config.Deathmatch[win_team].name .. " đã dành chiến thắng!"
+		TriggerEvent("pNotify:SendNotification", {
+			message = "" .. Config.Deathmatch[win_team].name .. " won!"
 		})
 		-- reset data
 		currentTeam = ""
@@ -357,12 +355,12 @@ function ShowBuyMenu(type)
 		is_buy = false
 		if not isReady then
 			table.insert(elements, {
-				label = "Sẵn sàng",
+				label = "Ready",
 				value = "ready"
 			})
 		else
 			-- table.insert(elements, {
-			-- 	label = "Thoát",
+			-- 	label = "Exit",
 			-- 	value = "quit"
 			-- })
 		end
@@ -377,7 +375,7 @@ function ShowBuyMenu(type)
 	end
 
     ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'buy_menu_' .. type, {
-        title    = "Mua súng ",
+        title    = "Buy gun ",
         align    = 'top-left',
         elements = elements
     }, function(data, menu)
@@ -391,8 +389,8 @@ function ShowBuyMenu(type)
 				ShowBuyMenu(data.current.value)
 			else 
 				TriggerServerEvent("esx_tpnrp_teamdeathmatch:playerReady", currentTeam)
-				TriggerEvent("njessieNotify:SendNotification", {
-					message = "Đã sẵn sàng!"
+				TriggerEvent("pNotify:SendNotification", {
+					message = "Ready!"
 				})
 				isReady = true
 			end
