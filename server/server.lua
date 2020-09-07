@@ -1,14 +1,14 @@
 ESX = nil
-isEnableMatch = false
+isEnableMatch = true
 isMatchStart = false
 Deathmatch = {
     BlueTeam = {
-        name = "Đội Xanh",
+        name = "Blue Team",
         player_list = {},
         score = 0
     },
     RedTeam = {
-        name = "Đội Đỏ",
+        name = "Red Team",
         player_list = {},
         score = 0
     }
@@ -55,7 +55,7 @@ AddEventHandler('esx_tpnrp_teamdeathmatch:joinTeam', function(team_name)
                 updateUI()
             end
         else
-            TriggerClientEvent('esx:showNotification', _source, "Trận đấu đang diễn ra. Bạn không thể tham gia!")
+            TriggerClientEvent('esx:showNotification', _source, "The match is going on. You cannot participate!")
         end
     end
 end)
@@ -144,10 +144,10 @@ function checkReady()
                 startMatch()
             end
         else
-            TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1Số lượng thành viên không đồng đều! Đội đỏ: ' .. _cntRed .. ' Đội xanh: '.. _cntBlue)    
+            TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Arena: ^1 unfair number of members! Red team: ' .. _cntRed .. ' blue team: '.. _cntBlue)    
         end
     else
-        TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1Chưa đủ người không thể bắt đầu trận đấu!')
+        TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Arena: ^1 Not enough people cannot start the match!')
     end
 end
 
@@ -160,7 +160,7 @@ function startMatch()
     for k,v in pairs(Deathmatch["RedTeam"].player_list) do
         TriggerClientEvent('esx_tpnrp_teamdeathmatch:startMatch', k)
     end
-    TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1Trận đấu đã bắt đầu!')
+    TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Arena: ^1 The match has begun!')
 end
 
 function updateUI()
@@ -205,7 +205,7 @@ function checkMatch(team_name)
             for k,v in pairs(Deathmatch[team_name].player_list) do
                 TriggerClientEvent('esx_tpnrp_teamdeathmatch:matchFinished', k, Deathmatch, winTeam)
             end
-            TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1'.. Deathmatch[winTeam].name .. " đã dành chiến thắng chung cuộc!")
+            TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Arena: ^1'.. Deathmatch[winTeam].name .. " won the final match!")
             SetTimeout(15000, function()
                 -- Reset player inventory
                 -- tele back to start point
@@ -250,7 +250,7 @@ function checkMatch(team_name)
             for k,v in pairs(Deathmatch[team_name].player_list) do
                 TriggerClientEvent('esx_tpnrp_teamdeathmatch:youLose', k, Deathmatch, winTeam)
             end
-            TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Đấu trường: ^1'.. Deathmatch[winTeam].name .. " đã dành chiến thắng! Tỉ số hiện tại " .. Deathmatch[winTeam].score .. " - " .. Deathmatch[team_name].score .. " nghiêng về " .. Deathmatch[winTeam].name)
+            TriggerClientEvent('chatMessage', -1, '', {255,255,255}, '^8Arena: ^1'.. Deathmatch[winTeam].name .. " won! Current score " .. Deathmatch[winTeam].score .. " - " .. Deathmatch[team_name].score .. " leaning in " .. Deathmatch[winTeam].name)
             SetTimeout(15000, function()
                 -- Call tele all players
                 -- Revive all players
@@ -286,12 +286,12 @@ end
 function resetMatch()
     Deathmatch = {
         BlueTeam = {
-            name = "Đội Xanh",
+            name = "Blue Team",
             player_list = {},
             score = 0
         },
         RedTeam = {
-            name = "Đội Đỏ",
+            name = "Red Team",
             player_list = {},
             score = 0
         }
