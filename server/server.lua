@@ -55,7 +55,7 @@ AddEventHandler('esx_tpnrp_teamdeathmatch:joinTeam', function(team_name)
                 updateUI()
             end
         else
-            TriggerClientEvent('esx:showNotification', _source, "The match is going on. You cannot participate!")
+            TriggerClientEvent("pNotify:SendNotification", _source, "The match is going on. You cannot participate!")
         end
     end
 end)
