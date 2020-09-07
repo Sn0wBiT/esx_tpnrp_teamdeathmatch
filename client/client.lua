@@ -137,7 +137,7 @@ Citizen.CreateThread(function()
 							type = "endgame"
 						})
 						TriggerEvent("pNotify:SendNotification", {
-							message = "Make a full spread over the area! Chat with other questions!"
+							text = "Make a full spread over the area! Chat with other questions!"
 						})
 						ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 							TriggerEvent('skinchanger:loadSkin', skin)
@@ -229,7 +229,7 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:joinedMatch", function(name, game_data
 			end
 		end)
 		TriggerEvent("pNotify:SendNotification", {
-			message = "You have participated " .. Config.Deathmatch[name].name .. " !"
+			text = "You have participated " .. Config.Deathmatch[name].name .. " !"
 		})
 		currentTeam = name
 		SendNUIMessage({
@@ -241,7 +241,7 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:joinedMatch", function(name, game_data
 		})
 		-- FreezeEntityPosition(_playerPed, true)
 		TriggerEvent("pNotify:SendNotification", {
-			message = "You need to get ready to start the game!"
+			text = "You need to get ready to start the game!"
 		})
 	end)
 end)
@@ -289,7 +289,7 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:newRound", function(team_name)
 	-- Tele player back to spawn point
 	ESX.Game.Teleport(_playerPed, vector3(Config.Deathmatch[team_name].game_start_pos.x,Config.Deathmatch[team_name].game_start_pos.y, Config.Deathmatch[team_name].game_start_pos.z),function() 
 		TriggerEvent("pNotify:SendNotification", {
-			message = "New game has started!"
+			text = "New game has started!"
 		})
 	end)
 end)
@@ -302,7 +302,7 @@ AddEventHandler("esx_tpnrp_teamdeathmatch:endMatch", function(team_name, win_tea
 			TriggerEvent('skinchanger:loadSkin', skin)
 		end)
 		TriggerEvent("pNotify:SendNotification", {
-			message = "" .. Config.Deathmatch[win_team].name .. " won!"
+			text = "" .. Config.Deathmatch[win_team].name .. " won!"
 		})
 		-- reset data
 		currentTeam = ""
@@ -392,7 +392,7 @@ function ShowBuyMenu(type)
 			else 
 				TriggerServerEvent("esx_tpnrp_teamdeathmatch:playerReady", currentTeam)
 				TriggerEvent("pNotify:SendNotification", {
-					message = "Ready!"
+					text = "Ready!",type = "success", timeout = math.random(1000, 10000)
 				})
 				isReady = true
 			end
