@@ -22,7 +22,7 @@ $(function(){
             // reset time
             startMatch();
         } else if (event.data.type == "endgame") {
-            Speak("Trận đấu đã kết thúc!");
+            Speak("Tráº­n Ä‘áº¥u Ä‘Ã£ káº¿t thÃºc!");
             $('#header').hide();
             this.location.reload();
         } else if(event.data.type == "update_game_ui_win_finished") {
@@ -72,18 +72,18 @@ function showWinTeam(data, finished)
 {
     var _textSpeak = "";
     if(data.win_team == "RedTeam") {
-        $('#winning_team').html(`<span class="red">Đội đỏ</span>`);
-        _textSpeak = "Đội đỏ đã chiến thắng!";
-        // Speak("Đội đỏ đã chiến thắng!");
+        $('#winning_team').html(`<span class="red">Red Team</span>`);
+        _textSpeak = "The red team has won!";
+        // Speak("Äá»™i Ä‘á» Ä‘Ã£ chiáº¿n tháº¯ng!");
     } else {
-        $('#winning_team').html(`<span class="blue">Đội xanh</span>`);
-        _textSpeak = "Đội xanh đã chiến thắng!";
-        // Speak("Đội xanh đã chiến thắng!");
+        $('#winning_team').html(`<span class="blue">Blue Team</span>`);
+        _textSpeak = "The blue team has won!";
+        // Speak("Äá»™i xanh Ä‘Ã£ chiáº¿n tháº¯ng!");
     }
     $('#who_won').fadeIn();
     if(finished) {
-        $('.div_info').html(`Trận đấu sẽ kết thúc trong <span class="red" id="remain_time">15</span> giây nữa!`);
-        _textSpeak += " Trận đấu sẽ kết thúc trong 15 giây nữa!";
+        $('.div_info').html(`The match will end in <span class="red" id="remain_time">15</span> seconds more!`);
+        _textSpeak += " The match will end in 15 seconds!";
     }
     Speak(_textSpeak);
 
@@ -126,11 +126,11 @@ function startMatch() {
     var fiveMinutes = 60 * 3,
         display = $('#time_counter');
     startTimer(fiveMinutes, display);
-    Speak("Trận đấu đã bắt đầu!");
+    Speak("The match has started!");
 }
 
 function Speak(text) {
-    $('#speak_ai').attr("src", "https://translate.google.com.vn/translate_tts?ie=UTF-8&q="+encodeURI(text)+"&tl=vi&total=1&idx=0&client=tw-ob");
+    $('#speak_ai').attr("src", "https://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(text)+"&tl=en-us&total=1&idx=0&client=tw-ob");
     // $('#speak_ai').play();
     document.getElementById('speak_ai').play();
 }
