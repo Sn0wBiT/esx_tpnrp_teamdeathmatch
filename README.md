@@ -10,7 +10,7 @@ A mini-game that allow up to 5 players in 1 team (2 team). Similar to CS:GO.
 Find this `njessieNotify:SendNotification` and replace with your own notify system!
 
 ### Contributors:
-(https://contributors-img.web.app/image?repo=Sn0wBiT/esx_tpnrp_teamdeathmatch)
+![Alt text](https://contributors-img.web.app/image?repo=Sn0wBiT/esx_tpnrp_teamdeathmatch)
 
 ### Screenshot and Video:
 There is no videos. If you have any video please pm me then I'll post it here.
